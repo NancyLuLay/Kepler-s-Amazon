@@ -22,6 +22,12 @@
        <%= f.text_field :price %>
     </div>
   </div>
+  <!-- Dropdown -->
+  <div class="form-group row">
+      <%= f.label(:category, class: "col-xs-2 col-form-label") %><br>
+      <%= f.collection_select :category_id, Category.all, :id, :title %>
+  </div>
+
    <%= f.submit ("Edit Product"), {class: "btn btn-danger col-xs-offset-2"}%>
 
  <% end %>

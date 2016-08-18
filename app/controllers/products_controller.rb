@@ -11,6 +11,8 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find params[:id]
     @review = Review.new
+    @category = @product.category
+  
   end
 
   def edit
@@ -19,7 +21,7 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find params[:id]
-    if @product.update params.require(:product).permit([:title, :description, :price, :image, :tbn_image])
+    if @product.update params.require(:product).permit([:title, :description, :price, :image, :tbn_image, :category_id])
       redirect_to product_path(@product)
     else
       render :new
@@ -28,7 +30,7 @@ class ProductsController < ApplicationController
 
   def create
 
-   product_params  = params.require(:product).permit([:title, :description, :price, :image, :tbn_image])
+   product_params  = params.require(:product).permit([:title, :description, :price, :image, :tbn_image, :category_id])
     @product       = Product.new product_params
 
     if @product.save
