@@ -1,0 +1,7 @@
+<h1>Here are your favorite products:</h1>
+
+<% @user.favourited_products.each do |fav| %>
+<ul>
+  <li> <%= link_to fav.title, product_path(fav) %> </li>
+</ul>
+<% end %>

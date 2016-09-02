@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @product = Product.new
@@ -12,7 +13,6 @@ class ProductsController < ApplicationController
     @product = Product.find params[:id]
     @review = Review.new
     @category = @product.category
-  
   end
 
   def edit
@@ -29,9 +29,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-
    product_params  = params.require(:product).permit([:title, :description, :price, :image, :tbn_image, :category_id])
     @product       = Product.new product_params
+
+    @product.user = current_user
 
     if @product.save
       redirect_to product_path(@product)

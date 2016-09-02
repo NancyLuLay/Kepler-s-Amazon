@@ -6,15 +6,33 @@
 <p>Category: <%= @category.title %></p>
 
 <%= link_to "Edit" , edit_product_path(@product), class: "btn btn-default" %>
+|
 <%= link_to "Delete" , product_path(@product),
                         method: :delete,
                         data: {confirm: "Are you sure?"} ,
                         class: "btn btn-default"
 %>
+|
+<!-- Favourite -->
+<% if can? :favourite, @product %>
 
+<% user_favourite = @product.favourite_for current_user%>
+<% if user_favourite.present? %>
+<%= link_to "Remove Favourite", product_favourite_path(@product, user_favourite),
+                      		      method: :delete %>
+<% else %>
+<%= link_to "Favourite", product_favourites_path(@product),
+                         method: :post %>
+<% end %>
+<% else %>
+Favourite
+<% end %>
+(<%= pluralize @product.favourites.count, "Favourite"  %>)
+
+<!-- Creating a review -->
 <h2>Submit a review</h2>
 <%= @review.errors.full_messages.join(",") %>
-<%= form_for [@product, @review] do |f| %>
+<%= form_for [@product, @review], remote: true do |f| %>
 <div>
   <%= f.label :body %>
   <%= f.text_area :body %>
@@ -34,13 +52,10 @@
 
 <%= f.submit %>
 <% end %>
-
+<!-- Showing Reviews -->
 <h2>Reviews</h2>
+<div id="reviews">
 <% @product.reviews.each do |rev| %>
-Review: <%= rev.body %>
-Star: <%= rev.star %>
-<%= link_to "delete", product_review_path(@product, rev),
-            method: :delete,
-            data: {confirm: "Are you sure?"} %>
-<hr>
+  <%= render "/reviews/review", review: rev %>
 <% end %>
+</div>

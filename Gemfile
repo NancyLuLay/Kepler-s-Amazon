@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-#gem 'bootstrap-sass'#, '~> 3.2.0'
+# gem 'bootstrap-sass'#, '~> 3.2.0'
 gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'autoprefixer-rails'
 
@@ -28,8 +28,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 gem 'cowsay'
+gem 'cancancan'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -37,12 +39,12 @@ gem 'cowsay'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'rspec-rails' 
+  gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'factory_girl_rails'
   gem 'faker', github: "stympy/faker"
   gem 'nyan-cat-formatter'
-
+  gem 'pry'
 end
 
 group :development do
